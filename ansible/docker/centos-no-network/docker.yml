@@ -1,0 +1,19 @@
+---
+- name: install docker
+  hosts: app
+  remote_user: root
+
+  tasks:
+    - name: Copy docker yum files
+      copy:
+        src: /root/docker/docker
+        dest: /root/docker
+
+    - name: Install docker
+      shell: /usr/bin/rpm -Uvh --force --nodeps /root/docker/docker/*.rpm
+
+    - name: Copy docker-compose
+      copy:
+        src: /root/ansible/docker-compose
+        dest: /usr/bin/docker-compose
+        mode: '0755'
